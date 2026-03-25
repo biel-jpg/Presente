@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Você ✨</title>
+    <!-- Pré-carrega imagens para WhatsApp -->
+    <link rel="preload" href="https://snipboard.io/CiXzAu.jpg" as="image">
+    <link rel="preload" href="https://snipboard.io/9zAODF.jpg" as="image">
+    <link rel="preload" href="https://snipboard.io/AWykKx.jpg" as="image">
+    <link rel="preload" href="https://snipboard.io/DPmEjc.jpg" as="image">
+    <link rel="preload" href="https://snipboard.io/lAOdDP.jpg" as="image">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a0033 0%, #2d1b69 50%, #667eea 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            padding-bottom: 100px; /* Espaço para botão fixo */
+        }
+
+        /* Partículas otimizadas */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #fee, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, #fff, transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: #fff;
+            font-weight: 400;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 20px rgba(255,255,255,0.3);
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.9);
+            font-style: italic;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .mural {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .memory-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .memory-card:nth-child(1) { animation-delay: 0.1s; }
+        .memory-card:nth-child(2) { animation-delay: 0.2s; }
+        .memory-card:nth-child(3) { animation-delay: 0.3s; }
+        .memory-card:nth-child(4) { animation-delay: 0.4s; }
+        .memory-card:nth-child(5) { animation-delay: 0.5s; }
+
+        .memory-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .memory-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b9d, #c44569, #ff6b9d);
+            border-radius: 24px 24px 0 0;
+        }
+
+        .memory-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            /* WhatsApp fix: força carregamento */
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        .destaque-img {
+            height: 300px;
+        }
+
+        .destaque {
+            grid-column: 1 / -1;
+        }
+
+        .memory-title {
+            font-size: 1.4rem;
+            color: #fff;
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+
+        .memory-text {
+            color: rgba(255,255,255,0.9);
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        .final-message {
+            text-align: center;
+            padding: 60px 40px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-top: 40px;
+            animation: fadeInUp 2s ease-out 0.8s both;
+        }
+
+        .final-message h2 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .final-message p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.8;
+        }
+
+        .heart {
+            font-size: 3rem;
+            color: #ff6b9d;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            display: block;
+            margin: 20px auto;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes subir {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-150px) scale(1.5); opacity: 0; }
+        }
+
+        /* Botão fixo WhatsApp-friendly */
+        .save-btn-fixed {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 15px 40px rgba(255,107,157,0.5);
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            min-width: 280px;
+        }
+
+        .save-btn-fixed:hover,
+        .save-btn-fixed:active {
+            transform: translateX(-50%) translateY(-3px);
+            box-shadow: 0 20px 50px rgba(255,107,157,0.7);
+        }
+
+        /* Notificação WhatsApp */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff6b9d, #c44569);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            z-index: 1001;
+            transform: scale(0);
+            transform-origin: top right;
+            animation: popIn 0.5s ease forwards;
+        }
+
+        @keyframes popIn {
+            to {
+                transform: scale(1);
+            }
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .mural {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .memory-card {
+                padding: 30px 20px;
+            }
+            
+            .save-btn-fixed {
+                bottom: 10px;
+                padding: 16px 30px;
+                font-size: 1.1rem;
+                min-width: 260px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Para Meu Amor</h1>
+            <p>Um pedacinho do meu coração em cada memória que criamos juntos ✨</p>
+        </div>
+
+        <div class="mural">
+            <!-- IMAGENS COM FALLBACK -->
+            <div class="memory-card destaque">
+                <img src="https://snipboard.io/CiXzAu.jpg" 
+                     alt="Seu olhar" 
+                     class="memory-image destaque-img"
+                     onerror="this.src='https://via.placeholder.com/400x300/ff6b9d/fff?text=💖+SEU+OLHAR'">
+                <h3 class="memory-title">Seu olhar</h3>
+                <p class="memory-text">
+                    Aqui começa tudo. Tem algo no seu olhar que me desarma... como se, ali dentro, eu encontrasse tudo que eu sempre procurei sem nem saber.
+                </p>
+            </div>
+
+            <div class="memory-card">
+                <img src="https://snipboard.io/9zAODF.jpg" 
+                     alt="Palhaçadas" 
+                     class="memory-image"
+                     onerror="this.src='https://via.placeholder.com/400x250/ff6b9d/fff?text=😂+PALHAÇADAS'">
+                <h3 class="memory-title">Palhaçadas</h3>
+                <p class="memory-text">Entre minhas risadas e suas caras de "sério isso?"... a gente vai construindo memórias que eu não trocaria por nada.</p>
+            </div>
+
+            <div class="memory-card">
+                <img src="https://snipboard.io/AWykKx.jpg" 
+                     alt="08/03/2026" 
+                     class="memory-image"
+                     onerror="this.src='https://via.placeholder.com/400x250/ff6b9d/fff?text=💍+08/03'">
+                <h3 class="memory-title">08/03/2026</h3>
+                <p class="memory-text">O dia. O dia da pergunta mais importante. E eu perguntaria todos os dias, só para ouvir seu sim novamente.</p>
+            </div>
+
+            <div class="memory-card">
+                <img src="https://snipboard.io/DPmEjc.jpg" 
+                     alt="Nossos encontros" 
+                     class="memory-image"
+                     onerror="this.src='https://via.placeholder.com/400x250/ff6b9d/fff?text=❤️+ENCONTROS'">
+                <h3 class="memory-title">Nossos encontros</h3>
+                <p class="memory-text">Estar com você nunca foi só sobre sair ou fazer algo... sempre foi sobre como eu me sinto quando tô ao seu lado.</p>
+            </div>
+
+            <div class="memory-card">
+                <img src="https://snipboard.io/lAOdDP.jpg" 
+                     alt="Meu olhar" 
+                     class="memory-image"
+                     onerror="this.src='https://via.placeholder.com/400x250/ff6b9d/fff?text=😍+MEU+OLHAR'">
+                <h3 class="memory-title">Meu olhar</h3>
+                <p class="memory-text">Se no seu olhar eu encontrei tudo sem nem saber... é no meu que você pode ver o quanto disso tudo virou amor.</p>
+            </div>
+        </div>
+
+        <div class="final-message">
+            <span class="heart">💖</span>
+            <h2>Você É Meu Amor Puro</h2>
+            <p>
+                Nosso mural. Cada foto, cada palavra, cada batida deste coração
+                é para você guardar no seu. Te amo mais do que todas as estrelas desse universo.
+                <br><br>
+                <em>"O que há dentro do meu coração<br>
+                Eu tenho guardado pra te dar<br>
+                E todas as horas que o tempo<br>
+                Tem pra me conceder<br>
+                São tuas até morrer."</em>
+            </p>
+        </div>
+    </div>
+
+    <!-- Botão fixo sempre visível -->
+    <button class="save-btn-fixed" onclick="saveMemory()">
+        💖 Guardar no Coração
+    </button>
+
+    <script>
+        // Força carregamento das imagens
+        window.addEventListener('load', () => {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.decode().catch(() => {
+                    // Fallback já definido no HTML
+                });
+            });
+        });
+
+        // Função otimizada para WhatsApp
+        function saveMemory() {
+            // Notificação
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = '💖 Memórias salvas no coração! ✨';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'none';
+                notification.style.transform = 'scale(0)';
+                setTimeout(() => notification.remove(), 300);
+            }, 2500);
+
+            // Corações subindo (otimizado WhatsApp)
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = ['💖', '💕', '💗', '💝'][Math.floor(Math.random()*4)];
+                    heart.style.cssText = `
+                        position: fixed;
+                        left: ${Math.random() * 80 + 10}vw;
+                        bottom: 120px;
+                        font-size: ${25 + Math.random() * 15}px;
+                        z-index: 1002;
+                        pointer-events: none;
+                        animation: subir ${1.5 + Math.random()}s ease-out forwards;
+                    `;
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => heart.remove(), 2000);
+                }, i * 100);
+            }
+
+            // Vibração no celular
+            if (navigator.vibrate) {
+                navigator.vibrate([100, 50, 100]);
+            }
+        }
+
+        // Scroll suave para mobile
+        document.addEventListener('touchmove', () => {
+            const cards = document.querySelectorAll('.memory-card');
+            cards.forEach((card, index) => {
+                if (!card.style.opacity || card.style.opacity === '0') {
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, { passive: true });
+    </script>
+</body>
+</html>
